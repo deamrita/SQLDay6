@@ -1,0 +1,22 @@
+----------------getting avg popularity location wise---------------
+select avg(popularity),location from facebook_employees f
+inner join facebook_hack_survey h
+on f.id = h.employee_id
+group by location
+
+---------------calculates the difference between the highest salaries found in the marketing and engineering departments---------
+select
+ABS((select max(e.salary) from db_employee e
+inner join db_dept d
+on e.department_id = d.id
+where d.department like "%marketing%")
+-
+(select max(e.salary) from db_employee e
+inner join db_dept d
+on e.department_id = d.id
+where d.department like "%engineering%"))
+------------------Find the details of each customer regardless of whether the customer made an order------------------
+select c.first_name, c.last_name, c.city, o.order_details from customers c
+left join orders o
+on c.id = o.cust_id
+order by c.first_name,o.order_details
